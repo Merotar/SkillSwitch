@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public int playerId;
     public float acceleration = 10;
     public float maxHorizontalSpeed = 10;
     public float jumpSpeed = 10;
@@ -21,8 +22,8 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
-        float moveHorizontal = Input.GetAxis("Horizontal");
-        bool jump = Input.GetButtonDown("Jump");
+        float moveHorizontal = Input.GetAxis("Horizontal" + playerId);
+        bool jump = Input.GetButtonDown("Jump" + playerId);
 
         Vector3 movement = new Vector3(moveHorizontal, 0f, 0f);
         rb.AddForce(movement * acceleration);

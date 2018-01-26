@@ -14,7 +14,7 @@ public class Level
 [Serializable]
 public class Layer
 {
-    int[] data;
+    public int[] data;
     public int height;
     public string name;
     public float opacity;
@@ -28,11 +28,40 @@ public class Layer
 public class TiledJsonImporter : MonoBehaviour
 {
     public string fileName = "level.json";
+    public static Level importedLevel;
+
+    public GameObject[] tiles;
 
     // Use this for initialization
-    void OnEnable()
+    void Awake()
     {
         string json = System.IO.File.ReadAllText(fileName);
-        Level level = JsonUtility.FromJson<Level>(json);	
+        importedLevel = JsonUtility.FromJson<Level>(json);
+        GenerateLevel();
+    }
+
+    void GenerateLevel()
+    {
+        Vector3 z = Vector3.zero;
+        foreach (var layer in importedLevel.layers)
+        {
+            int width = layer.data.Length / layer.height;
+            for (int y = 0; y != layer.height; ++y)
+            {
+                for (int x = 0; x != width; ++x)
+                {
+                    int index = x + width * y;
+                    int objId = layer.data[index];
+                    GameObject prefab = tiles[objId];
+                    if (prefab != null)
+                    {
+                        GameObject tile = Instantiate(prefab);
+                        tile.transform.position = x * Vector3.right + y * Vector3.up + z;
+
+                    }
+                }
+            }
+            z -= Vector3.forward;
+        }
     }
 }
