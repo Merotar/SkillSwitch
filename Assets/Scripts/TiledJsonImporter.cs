@@ -27,23 +27,26 @@ public class Layer
 
 public class TiledJsonImporter : MonoBehaviour
 {
-    public string fileName = "level.json";
-    public static Level importedLevel;
+    public string levelPath = "teamCpp/assets/levels";
 
     public GameObject[] tiles;
 
     // Use this for initialization
     void Awake()
     {
-        string json = System.IO.File.ReadAllText(fileName);
-        importedLevel = JsonUtility.FromJson<Level>(json);
-        GenerateLevel();
+        GenerateLevel(LoadLevel(1));
     }
 
-    void GenerateLevel()
+    Level LoadLevel(int level)
+    {
+        string json = System.IO.File.ReadAllText(levelPath + "/level" + level + ".json");
+        return JsonUtility.FromJson<Level>(json);
+    }
+
+    void GenerateLevel(Level level)
     {
         Vector3 z = Vector3.zero;
-        foreach (var layer in importedLevel.layers)
+        foreach (var layer in level.layers)
         {
             int width = layer.data.Length / layer.height;
             for (int y = 0; y != layer.height; ++y)
@@ -56,7 +59,7 @@ public class TiledJsonImporter : MonoBehaviour
                     if (prefab != null)
                     {
                         GameObject tile = Instantiate(prefab);
-                        tile.transform.position = x * Vector3.right + y * Vector3.up + z;
+                        tile.transform.position = x * Vector3.right + (layer.height - y) * Vector3.up + z;
 
                     }
                 }
