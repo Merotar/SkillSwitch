@@ -48,6 +48,8 @@ public class TiledJsonImporter : MonoBehaviour
         Vector3 z = Vector3.zero;
         foreach (var layer in level.layers)
         {
+            if (layer.data == null)
+                continue;
             int width = layer.data.Length / layer.height;
             for (int y = 0; y != layer.height; ++y)
             {
