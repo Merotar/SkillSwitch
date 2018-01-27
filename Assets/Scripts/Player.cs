@@ -29,6 +29,9 @@ public class Player : MonoBehaviour
 
     private ParticleSystem sparkParticles;
 
+    public float shotDelay;
+    private float shotDt;
+
     private AudioSource audioSource;
     public AudioClip jumpClip;
     public AudioClip slowMotionClip;
@@ -45,6 +48,7 @@ public class Player : MonoBehaviour
 
     void Init()
     {
+        shotDt = 0;
         transform.position = startPos;
         SkillActions = new Action[]{ Jump, SlowDown, Shoot };
         currentSpeed = speed;
@@ -103,8 +107,12 @@ public class Player : MonoBehaviour
 
     private void Shoot()
     {
-        Renderer renderer = gameObject.GetComponentInChildren<Renderer>();
-        GameObject.Instantiate(shot, new Vector3(0.5f + renderer.bounds.size.x / 2.0f, 0, 0) + gameObject.transform.position, Quaternion.identity);
+        if (shotDt <= 0)
+        {
+            Renderer renderer = gameObject.GetComponentInChildren<Renderer>();
+            GameObject.Instantiate(shot, new Vector3(0.5f + renderer.bounds.size.x / 2.0f, 0, 0) + gameObject.transform.position, Quaternion.identity);
+            shotDt = shotDelay;
+        }
     }
 
     private void UpdateSlowDown()
@@ -148,6 +156,11 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (shotDt > 0)
+        {
+            shotDt -= Time.fixedDeltaTime;
+        }
+
         if (!GameHandler.IsRunning())
         {
             sparkParticles.Stop();
