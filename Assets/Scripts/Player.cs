@@ -30,6 +30,7 @@ public class Player : MonoBehaviour
     private AudioSource audioSource;
     public AudioClip jumpClip;
     public AudioClip slowMotionClip;
+    public AudioClip skillSwitchClip;
 
     public static void OnSceneReload()
     {
@@ -150,7 +151,10 @@ public class Player : MonoBehaviour
         if (OwnsSkill(skillId))
         {
             if (Input.GetButton("Shift_" + playerId))
+            {
                 SwapSkill(skillId);
+                audioSource.PlayOneShot(skillSwitchClip);
+            }
             else
                 SkillActions[skillId]();
         }
