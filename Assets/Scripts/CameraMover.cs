@@ -26,6 +26,12 @@ public class CameraMover : MonoBehaviour
 
         Vector3 center = (Player.player1.transform.position + Player.player2.transform.position) / 2;
         center.z = -distance;
-        cam.transform.position = Vector3.Lerp(cam.transform.position, center, smoothingFactor);
+
+        //transform.position = Vector3.Lerp(cam.transform.position, center, Mathf.Atan(Time.deltaTime) * smoothingFactor);
+        //center.x = transform.position.x * (1 - smoothingFactor) + smoothingFactor * center.x;
+
+        Debug.Log((transform.position.x - center.x) + "\t" + Time.deltaTime);
+
+        transform.position = center;
     }
 }
