@@ -4,4 +4,12 @@ using UnityEngine;
 
 public class Goal : MonoBehaviour
 {
+    public float rotationSpeed;
+    public Material material;
+
+    void Update()
+    {
+        material.SetFloat("_GlowWidth", Mathf.Sin(Time.time * rotationSpeed));
+        transform.RotateAround(transform.position, transform.up, Time.deltaTime * rotationSpeed);
+    }
 }
