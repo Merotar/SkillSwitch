@@ -7,11 +7,11 @@ using System;
 public class Player : MonoBehaviour
 {
     public int playerId;
-    public static float speed = 0;
+    public static float speed = 10;
     public static float maxHorizontalSpeed = 10;
     public static float jumpSpeed = 10;
 
-    public float gravity = 9.81F;
+    private static float gravity = 9.81F;
 
     public static Player player1;
     public static Player player2;
