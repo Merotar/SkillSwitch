@@ -7,11 +7,13 @@ using System;
 public class Player : MonoBehaviour
 {
     public int playerId;
-    public static float speed = 8;
-    public static float maxHorizontalSpeed = 10;
-    public static float jumpSpeed = 15;
+    public readonly static float speed = 8;
+    public readonly static float maxHorizontalSpeed = 10;
+    public readonly static float jumpSpeed = 15;
 
-    private static float gravity = 25F;
+    private float currentSpeed;
+
+    private readonly static float gravity = 25F;
 
     public static Player player1;
     public static Player player2;
@@ -25,15 +27,27 @@ public class Player : MonoBehaviour
     private Action[] SkillActions;
     private static Player[] SkillOwner;
 
-    public void ResetPosition()
+    public static void OnSceneReload()
+    {
+        SkillOwner = null;
+    }
+
+    void Init()
     {
         transform.position = startPos;
-        SkillActions = new Action[]{ Shoot,  Jump, Slide, Run };
+        SkillActions = new Action[]{ SlowDown,  Jump, Slide, Run };
+        currentSpeed = speed;
         if (SkillOwner == null)
+        {
             SkillOwner = new Player[]{ this, this, null, null };
+            SkillDisplay.OnSkillOwnerChanged(0, this);
+            SkillDisplay.OnSkillOwnerChanged(1, this);
+        }
         else
         {
             SkillOwner[2] = SkillOwner[3] = this;
+            SkillDisplay.OnSkillOwnerChanged(2, this);
+            SkillDisplay.OnSkillOwnerChanged(3, this);
             if (playerId == 1)
                 otherPlayer = player2;
             else
@@ -50,8 +64,31 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void Shoot()
+    private static float slowDownTime = 2;
+    private static float slowDownFactor = 0.3f;
+    private float slowDownPressedTime = 0;
+
+    private void SlowDown()
     {
+        if (slowDownPressedTime == 0)
+            slowDownPressedTime = Time.time;
+    }
+
+    private void UpdateSlowDown()
+    {
+        if (slowDownPressedTime != 0)
+        {
+            float dt = Time.time - slowDownPressedTime;
+            if (dt > 3 * slowDownTime)
+            {  
+                currentSpeed = speed;
+                slowDownPressedTime = 0;
+            }
+            else if (dt < slowDownTime)
+                currentSpeed = speed * slowDownFactor;
+            else
+                currentSpeed = speed * (3 - slowDownFactor) / 2;
+        }
     }
 
     private void Slide()
@@ -71,9 +108,10 @@ public class Player : MonoBehaviour
             player2 = this;
 
         startPos = transform.position;
+        Init();
     }
 
-    private Vector3 moveDirection = speed * Vector3.right;
+    private Vector3 moveDirection;
 
     void FixedUpdate()
     {
@@ -81,9 +119,11 @@ public class Player : MonoBehaviour
             return;
 
         CheckActions();
-
+        moveDirection.x = currentSpeed;
         moveDirection.y -= gravity * Time.fixedDeltaTime;
         controller.Move(moveDirection * Time.fixedDeltaTime);
+
+        UpdateSlowDown();
     }
 
     void CheckActions()
@@ -116,13 +156,14 @@ public class Player : MonoBehaviour
     void SwapSkill(int skillId)
     {
         SkillOwner[skillId] = SkillOwner[skillId].otherPlayer;
+        SkillDisplay.OnSkillOwnerChanged(skillId, SkillOwner[skillId]);
     }
 
     void OnControllerColliderHit(ControllerColliderHit hit)
     {
         if (hit.gameObject.GetComponent<Goal>())
         {
-            GameHandler.OnPlayerReachedGoald(this);
+            GameHandler.OnPlayerReachedGoal(this);
         }
         else if (hit.gameObject.GetComponent<KillCollision>())
         {
@@ -130,6 +171,10 @@ public class Player : MonoBehaviour
         }
         else
         {
+            if ((controller.collisionFlags & CollisionFlags.Sides) != 0)
+            {
+                Debug.Log(Time.frameCount + "\t" + hit.point);
+            }
             CheckCollisions(controller.collisionFlags);
         }
     }
@@ -142,6 +187,11 @@ public class Player : MonoBehaviour
 
     private void OnCollisionSides()
     {
-        GameHandler.GameOver();    
+        GameHandler.GameOver();   
+    }
+
+    public Vector3 StartPosition()
+    {
+        return startPos;
     }
 }
