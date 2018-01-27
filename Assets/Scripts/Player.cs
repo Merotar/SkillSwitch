@@ -7,7 +7,7 @@ using System;
 public class Player : MonoBehaviour
 {
     public int playerId;
-    public static float speed = 10;
+    public static float speed = 5;
     public static float maxHorizontalSpeed = 10;
     public static float jumpSpeed = 10;
 
@@ -16,16 +16,30 @@ public class Player : MonoBehaviour
     public static Player player1;
     public static Player player2;
 
+    private Player otherPlayer;
+
     private Vector3 startPos;
 
     private CharacterController controller;
 
     private Action[] SkillActions;
+    private static Player[] SkillOwner;
 
     public void ResetPosition()
     {
         transform.position = startPos;
-        SkillActions = new Action[]{ Jump, Shoot, Slide, Run };
+        SkillActions = new Action[]{ Shoot,  Jump, Slide, Run };
+        if (SkillOwner == null)
+            SkillOwner = new Player[]{ this, this, null, null };
+        else
+        {
+            SkillOwner[2] = SkillOwner[3] = this;
+            if (playerId == 1)
+                otherPlayer = player2;
+            else
+                otherPlayer = player1;
+            otherPlayer.otherPlayer = this;
+        }
     }
 
     private void Jump()
@@ -76,13 +90,29 @@ public class Player : MonoBehaviour
     {
         for (int i = 0; i != 4; ++i)
         {
-            //if (Input.GetButtonDown("Shift_" + playerId))
             if (Input.GetButtonDown("Skill" + i + "_" + playerId))
             {
-                Debug.Log(i);
-                SkillActions[i]();
+                OnSkillTriggered(i);
             }
         }
+    }
+
+    void OnSkillTriggered(int skillId)
+    {
+        if (Input.GetButton("Shift_" + playerId))
+            SwapSkill(skillId);
+        else if (OwnsSkill(skillId))
+            SkillActions[skillId]();
+    }
+
+    bool OwnsSkill(int skillId)
+    {
+        return SkillOwner[skillId] == this;
+    }
+
+    void SwapSkill(int skillId)
+    {
+        SkillOwner[skillId] = SkillOwner[skillId].otherPlayer;
     }
 
     void OnControllerColliderHit(ControllerColliderHit hit)
