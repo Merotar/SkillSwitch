@@ -51,18 +51,18 @@ public class GameHandler: MonoBehaviour
 
     public static void NextLevel()
     {
-        instance.ChangeLevel(nextLevel + 1);
+        ChangeLevel(nextLevel + 1);
     }
 
     public static void PreviousLevel()
     {
         if (nextLevel > 0)
-            instance.ChangeLevel(nextLevel - 1);
+            ChangeLevel(nextLevel - 1);
         else
             GameOver();
     }
 
-    private void ChangeLevel(int level)
+    public static void ChangeLevel(int level)
     {
         running = false;
         nextLevel = level;

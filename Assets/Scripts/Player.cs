@@ -154,8 +154,17 @@ public class Player : MonoBehaviour
 
     private Vector3 moveDirection;
 
+    void Update()
+    {
+        if (Input.GetButtonDown("Menu"))
+        {
+            UIManager.instance.MenuButtonPressed();
+        }
+    }
+
     void FixedUpdate()
     {
+       
         if (shotDt > 0)
         {
             shotDt -= Time.fixedDeltaTime;
