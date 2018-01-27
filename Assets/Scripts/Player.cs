@@ -25,7 +25,8 @@ public class Player : MonoBehaviour
     private Action[] SkillActions;
     private static Player[] SkillOwner;
 
-    public void ResetPosition()
+
+    void Init()
     {
         transform.position = startPos;
         SkillActions = new Action[]{ Shoot,  Jump, Slide, Run };
@@ -77,6 +78,7 @@ public class Player : MonoBehaviour
             player2 = this;
 
         startPos = transform.position;
+        Init();
     }
 
     private Vector3 moveDirection = speed * Vector3.right;
@@ -129,10 +131,14 @@ public class Player : MonoBehaviour
     {
         if (hit.gameObject.GetComponent<Goal>())
         {
-            GameHandler.OnPlayerReachedGoald(this);
+            GameHandler.OnPlayerReachedGoal(this);
         }
         else
         {
+            if ((controller.collisionFlags & CollisionFlags.Sides) != 0)
+            {
+                Debug.Log(Time.frameCount + "\t" + hit.point);
+            }
             CheckCollisions(controller.collisionFlags);
         }
     }
@@ -145,7 +151,7 @@ public class Player : MonoBehaviour
 
     private void OnCollisionSides()
     {
-        GameHandler.GameOver();    
+        GameHandler.GameOver();   
     }
 
     public Vector3 StartPosition()

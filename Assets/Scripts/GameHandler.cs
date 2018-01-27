@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class GameHandler: MonoBehaviour
 {
@@ -12,7 +13,13 @@ public class GameHandler: MonoBehaviour
     {
         Debug.Assert(instance == null);
         instance = this;
-        RestartGame();
+        instance.StartCoroutine(StartCoro());
+    }
+
+    private static IEnumerator StartCoro()
+    {
+        yield return new WaitForSeconds(1);
+        running = true;
     }
 
     public static void RestartGame()
@@ -24,8 +31,7 @@ public class GameHandler: MonoBehaviour
     {
         while (Player.player1 == null)
             yield return null;
-        Player.player1.ResetPosition();
-        Player.player2.ResetPosition();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         yield return new WaitForSeconds(1);
         running = true;
     }
@@ -47,7 +53,7 @@ public class GameHandler: MonoBehaviour
         return running;
     }
 
-    public static void OnPlayerReachedGoald(Player player)
+    public static void OnPlayerReachedGoal(Player player)
     {
         running = false;
     }
