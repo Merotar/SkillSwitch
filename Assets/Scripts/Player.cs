@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 [RequireComponent(typeof(CharacterController))]
 public class Player : MonoBehaviour
@@ -19,9 +20,32 @@ public class Player : MonoBehaviour
 
     private CharacterController controller;
 
+    private Action[] SkillActions;
+
     public void ResetPosition()
     {
         transform.position = startPos;
+        SkillActions = new Action[]{ Jump, Shoot, Slide, Run };
+    }
+
+    private void Jump()
+    {
+        if (controller.isGrounded)
+        {
+            moveDirection.y = jumpSpeed;
+        }
+    }
+
+    private void Shoot()
+    {
+    }
+
+    private void Slide()
+    {
+    }
+
+    private void Run()
+    {
     }
 
     void Start()
@@ -41,15 +65,24 @@ public class Player : MonoBehaviour
     {
         if (!GameHandler.IsRunning())
             return;
-        if (controller.isGrounded)
-        {
-            if (Input.GetButton("Shift_" + playerId))
-            if (Input.GetButtonDown("Skill1_" + playerId))
-                moveDirection.y = jumpSpeed;
 
-        }
+        CheckActions();
+
         moveDirection.y -= gravity * Time.fixedDeltaTime;
         controller.Move(moveDirection * Time.fixedDeltaTime);
+    }
+
+    void CheckActions()
+    {
+        for (int i = 0; i != 4; ++i)
+        {
+            //if (Input.GetButtonDown("Shift_" + playerId))
+            if (Input.GetButtonDown("Skill" + i + "_" + playerId))
+            {
+                Debug.Log(i);
+                SkillActions[i]();
+            }
+        }
     }
 
     void OnControllerColliderHit(ControllerColliderHit hit)
