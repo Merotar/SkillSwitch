@@ -5,19 +5,26 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public int playerId;
-    public float acceleration = 10;
-    public float maxHorizontalSpeed = 10;
-    public float jumpSpeed = 10;
+    public static float acceleration = 20;
+    public static float maxHorizontalSpeed = 10;
+    public static float jumpSpeed = 10;
 
     private float distToGround;
 
     private Rigidbody rb;
+
+    public static Player player1;
+    public static Player player2;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         var collider = GetComponent<Collider>();
         distToGround = collider.bounds.extents.y;
+        if (playerId == 1)
+            player1 = this;
+        else
+            player2 = this;
     }
 
     void FixedUpdate()
@@ -26,11 +33,21 @@ public class Player : MonoBehaviour
         bool jump = Input.GetButtonDown("Jump" + playerId);
 
         Vector3 movement = new Vector3(moveHorizontal, 0f, 0f);
-        rb.AddForce(movement * acceleration);
-        if (jump && IsGrounded())
-            rb.velocity += jumpSpeed * Vector3.up;
 
-        rb.velocity = new Vector3(Mathf.Min(rb.velocity.x, maxHorizontalSpeed), rb.velocity.y); 
+        Vector3 velo = rb.velocity;
+
+        if (velo.x > maxHorizontalSpeed)
+        {
+            velo.x = maxHorizontalSpeed;
+            movement = Vector3.zero;
+        }
+
+        rb.AddForce(movement * acceleration);
+
+        if (jump && IsGrounded())
+            velo += jumpSpeed * Vector3.up;
+
+        rb.velocity = velo; 
     }
 
     bool IsGrounded()
