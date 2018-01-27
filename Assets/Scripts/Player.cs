@@ -27,6 +27,9 @@ public class Player : MonoBehaviour
     private Action[] SkillActions;
     private static Player[] SkillOwner;
 
+    private AudioSource audioSource;
+    public AudioClip jumpClip;
+
     public static void OnSceneReload()
     {
         SkillOwner = null;
@@ -52,6 +55,8 @@ public class Player : MonoBehaviour
                 otherPlayer = player1;
             otherPlayer.otherPlayer = this;
         }
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Jump()
@@ -59,6 +64,7 @@ public class Player : MonoBehaviour
         if (controller.isGrounded)
         {
             moveDirection.y = jumpSpeed;
+            audioSource.PlayOneShot(jumpClip);
         }
     }
 
