@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
     public int playerId;
     public readonly static float speed = 8;
     public readonly static float maxHorizontalSpeed = 10;
-    public readonly static float jumpSpeed = 15;
+    public readonly static float jumpSpeed = 12;
 
     private float currentSpeed;
 
@@ -27,7 +27,6 @@ public class Player : MonoBehaviour
     private Action[] SkillActions;
     private static Player[] SkillOwner;
 
-
     private AudioSource audioSource;
     public AudioClip jumpClip;
     public AudioClip slowMotionClip;
@@ -40,7 +39,6 @@ public class Player : MonoBehaviour
 
     public static void OnSceneReload()
     {
-        SkillOwner = null;
     }
 
     void Init()
@@ -48,16 +46,23 @@ public class Player : MonoBehaviour
         transform.position = startPos;
         SkillActions = new Action[]{ Jump, SlowDown, Shoot };
         currentSpeed = speed;
-        if (SkillOwner == null)
+        SkillOwner = new Player[3];
+        if (playerId == 1)
         {
-            SkillOwner = new Player[]{ this, this, null };
+            player1 = this;
+            SkillOwner[0] = SkillOwner[1] = this;
             SkillDisplay.OnSkillOwnerChanged(0, this);
             SkillDisplay.OnSkillOwnerChanged(1, this);
         }
         else
         {
+            player2 = this;
             SkillOwner[2] = this;
             SkillDisplay.OnSkillOwnerChanged(2, this);
+        }
+
+        if (player1 && player2)
+        {
             if (playerId == 1)
                 otherPlayer = player2;
             else
