@@ -6,8 +6,8 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: GroundMat
-  m_Shader: {fileID: 4800000, guid: 5929cb0761d66834aa1d7c32a1de151c, type: 3}
+  m_Name: BikeMaterial
+  m_Shader: {fileID: 4800000, guid: 33c0235fcf724f14d9d2b3d3e4ffa454, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -62,23 +62,18 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _GlowWidth: 0.458
-    - _LineWidth: 0.0376
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
-    - _Outline: 0.03
+    - _Outline: 0
     - _Parallax: 0.02
-    - _Shininess: 0.01
+    - _Shininess: 1
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
-    - _Steepness: 0.262
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 0, g: 0, b: 0, a: 1}
     - _Color: {r: 0, g: 0, b: 0, a: 1}
-    - _EdgeColor: {r: 0.25, g: 0.50344837, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _RimColor: {r: 0, g: 0.5448277, b: 1, a: 1}
+    - _RimColor: {r: 0.19117647, g: 0.5314401, b: 1, a: 1}

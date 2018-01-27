@@ -6,6 +6,8 @@
         _EdgeColor ("_EdgeColor", Color) = (1,1,1,1)
         _GlowWidth("_GlowWidth", Range(0, 1)) = 0.1
         _LineWidth("_LineWidth", Range(0, 0.1)) = 0.1
+        _Shininess ("Shininess", Range (0.01, 1)) = 0.078125
+
 
     }
     SubShader
@@ -24,6 +26,7 @@
             struct appdata
             {
                 float4 vertex : POSITION;
+                float3 normal : NORMAL;
                 float2 texcoord : TEXCOORD0;
             };
  
@@ -31,20 +34,28 @@
             {
                 float4 pos : SV_POSITION;
                 float2 uv : TEXCOORD0;
+                float4 color : COLOR;
             };
-         
-            v2f vert (appdata v)
-            {
-                v2f o;
-                o.pos = UnityObjectToClipPos(v.vertex);
-                o.uv = v.texcoord * 2 - 1;
-                return o;
-            }
 
             fixed4 _BaseColor;
             fixed4 _EdgeColor;
             fixed _GlowWidth;
             fixed _LineWidth;
+            float _Shininess;
+
+            v2f vert (appdata v)
+            {
+                v2f o;
+                o.pos = UnityObjectToClipPos(v.vertex);
+                o.uv = v.texcoord * 2 - 1;
+
+	            float3 viewDir = normalize(ObjSpaceViewDir(v.vertex));
+	            float dotProduct =( 1 - dot(v.normal, viewDir))*_Shininess;
+	            o.color = smoothstep(0.3, 1.0, dotProduct);
+	            o.color *= _EdgeColor;
+
+                return o;
+            }
 
 
 			half glowIntensity(half dist) {
@@ -59,7 +70,7 @@
 
                	alpha += max(glowIntensity(dist.x), glowIntensity(dist.y));
 
-                return lerp(_BaseColor, _EdgeColor, alpha);
+                return lerp(i.color, _EdgeColor, alpha);
             }
             ENDCG
         }
