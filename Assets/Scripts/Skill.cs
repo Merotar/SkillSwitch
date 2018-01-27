@@ -11,7 +11,7 @@ public class Skill : MonoBehaviour
         var player = collider.gameObject.GetComponent<Player>();
         if (player != null)
         {
-            SkillDisplay.OnSkillOwnerChanged(skillId, player);
+            SkillDisplay.OnSkillCollected(this, player);
         }
     }
 }
