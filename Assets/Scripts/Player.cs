@@ -7,13 +7,13 @@ using System;
 public class Player : MonoBehaviour
 {
     public int playerId;
-    public readonly static float speed = 8;
+    public readonly static float speed = 10;
     public readonly static float maxHorizontalSpeed = 10;
-    public readonly static float jumpSpeed = 15;
+    public readonly static float jumpSpeed = 20;
 
     private float currentSpeed;
 
-    private readonly static float gravity = 25F;
+    private readonly static float gravity = 50;
 
     public static Player player1;
     public static Player player2;
@@ -111,7 +111,7 @@ public class Player : MonoBehaviour
         if (shotDt <= 0)
         {
             Renderer renderer = gameObject.GetComponentInChildren<Renderer>();
-            GameObject.Instantiate(shot, new Vector3(0.5f + renderer.bounds.size.x / 2.0f, 0, 0) + gameObject.transform.position, Quaternion.identity);
+            GameObject.Instantiate(shot, new Vector3(0.5f + renderer.bounds.size.x / 2.0f, -0.6f, 0) + gameObject.transform.position, Quaternion.identity);
             shotDt = shotDelay;
         }
     }
@@ -156,7 +156,6 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
-       
         if (shotDt > 0)
         {
             shotDt -= Time.fixedDeltaTime;
