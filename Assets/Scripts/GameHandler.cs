@@ -18,7 +18,7 @@ public class GameHandler: MonoBehaviour
 
     private static IEnumerator StartCoro()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(5);
         running = true;
     }
 
