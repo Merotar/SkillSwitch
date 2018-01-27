@@ -48,19 +48,11 @@ public class Player : MonoBehaviour
         currentSpeed = speed;
         if (SkillOwner == null)
             SkillOwner = new Player[3];
+
         if (playerId == 1)
-        {
             player1 = this;
-            SkillOwner[0] = SkillOwner[1] = this;
-            SkillDisplay.OnSkillOwnerChanged(0, this);
-            SkillDisplay.OnSkillOwnerChanged(1, this);
-        }
         else
-        {
             player2 = this;
-            SkillOwner[2] = this;
-            SkillDisplay.OnSkillOwnerChanged(2, this);
-        }
 
         if (player1 && player2)
         {
@@ -168,12 +160,11 @@ public class Player : MonoBehaviour
         if (Physics.Raycast(transform.position + collider.center, -Vector3.up, out hit))
         {
             float dy = (transform.position + collider.center - hit.point).y;
-            if (dy <= collider.height / 2)
+            if (dy <= collider.height / 2 && !CheckIfHitObjectIsSpecial(hit.collider.gameObject))
             {
                 transform.position += (collider.height / 2 - dy) * Vector3.up;
                 moveDirection.y = 0;
 
-                CheckIfHitObjectIsSpecial(hit.collider.gameObject);
                 groundedByExtraColliders = true;
                 return true;
             }
@@ -221,7 +212,11 @@ public class Player : MonoBehaviour
     {
         if (!CheckIfHitObjectIsSpecial(hit.gameObject))
         {
-            CheckCollisions(controller.collisionFlags);
+            var v3 = hit.transform.position - transform.position;
+            var angle = Vector3.Angle(v3, transform.right);
+
+            if (angle < 30)
+                GameHandler.GameOver();
         }
     }
 
@@ -231,24 +226,18 @@ public class Player : MonoBehaviour
             GameHandler.OnPlayerReachedGoal(this);
         else if (hitObject.GetComponent<KillCollision>())
             GameHandler.GameOver();
-        else
+        else if (hitObject.GetComponent<Skill>() == null)
             return false;
         return true;
-    }
-
-    private void CheckCollisions(CollisionFlags collisions)
-    {
-        if ((collisions & CollisionFlags.Sides) != 0)
-            OnCollisionSides();
-    }
-
-    private void OnCollisionSides()
-    {
-        GameHandler.GameOver();   
     }
 
     public Vector3 StartPosition()
     {
         return startPos;
+    }
+
+    public void GiveSkill(int skillId)
+    {
+        SkillOwner[skillId] = this;
     }
 }
