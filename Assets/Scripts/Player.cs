@@ -263,7 +263,10 @@ public class Player : MonoBehaviour
         if (hitObject.GetComponent<Goal>())
             GameHandler.OnPlayerReachedGoal(this);
         else if (hitObject.GetComponent<KillCollision>())
+        {
+            deathParticles.Play();
             GameHandler.GameOver();
+        }
         else if (hitObject.GetComponent<Skill>() == null)
             return false;
         return true;
