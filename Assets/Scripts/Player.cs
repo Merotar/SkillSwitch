@@ -27,6 +27,7 @@ public class Player : MonoBehaviour
     private Action[] SkillActions;
     private static Player[] SkillOwner;
 
+    private ParticleSystem sparkParticles;
 
     private AudioSource audioSource;
     public AudioClip jumpClip;
@@ -63,6 +64,10 @@ public class Player : MonoBehaviour
             otherPlayer.otherPlayer = this;
         }
 
+        sparkParticles = gameObject.GetComponentInChildren<ParticleSystem>();
+        sparkParticles.Stop();
+        sparkParticles.enableEmission = false;
+
         audioSource = gameObject.AddComponent<AudioSource>();
     }
 
@@ -70,6 +75,8 @@ public class Player : MonoBehaviour
     {
         if (controller.isGrounded)
         {
+            sparkParticles.Stop();
+            sparkParticles.enableEmission = false;
             moveDirection.y = jumpSpeed;
             audioSource.PlayOneShot(jumpClip);
         }
@@ -136,7 +143,11 @@ public class Player : MonoBehaviour
     void FixedUpdate()
     {
         if (!GameHandler.IsRunning())
+        {
+            sparkParticles.Stop();
+            sparkParticles.enableEmission = false;
             return;
+        }
 
         CheckActions();
         moveDirection.x = currentSpeed;
@@ -155,6 +166,12 @@ public class Player : MonoBehaviour
             }
         }
         controller.Move(moveDirection * Time.fixedDeltaTime);
+
+        if (sparkParticles.isStopped)
+        {
+            sparkParticles.Play();
+            sparkParticles.enableEmission = true;
+        }
 
         UpdateSlowDown();
     }
