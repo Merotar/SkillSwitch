@@ -52,6 +52,7 @@ public class UIManager : MonoBehaviour
     public void MenuButtonPressed()
     {
         Time.timeScale = (1.0f - Time.timeScale);
+        openMenu = !openMenu;
         gameObject.SetActive(!gameObject.activeSelf);
     }
 }
