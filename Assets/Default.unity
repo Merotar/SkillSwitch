@@ -319,6 +319,11 @@ Prefab:
       propertyPath: m_Name
       value: Player1
       objectReference: {fileID: 0}
+    - target: {fileID: 114116468888761888, guid: cb7924df3b05e6d46b8a8b102bda6820,
+        type: 2}
+      propertyPath: skillSwitchClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 808de14bfb061984fbfc95a0bcbd2513, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cb7924df3b05e6d46b8a8b102bda6820, type: 2}
   m_IsPrefabParent: 0
@@ -751,6 +756,11 @@ Prefab:
       propertyPath: playerId
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114116468888761888, guid: cb7924df3b05e6d46b8a8b102bda6820,
+        type: 2}
+      propertyPath: skillSwitchClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 808de14bfb061984fbfc95a0bcbd2513, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cb7924df3b05e6d46b8a8b102bda6820, type: 2}
   m_IsPrefabParent: 0
