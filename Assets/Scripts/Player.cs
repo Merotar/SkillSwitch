@@ -124,6 +124,10 @@ public class Player : MonoBehaviour
         {
             GameHandler.OnPlayerReachedGoald(this);
         }
+        else if (hit.gameObject.GetComponent<KillCollision>())
+        {
+            GameHandler.GameOver();
+        }
         else
         {
             CheckCollisions(controller.collisionFlags);
