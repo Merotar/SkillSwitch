@@ -36,6 +36,7 @@ public class Player : MonoBehaviour
     public GameObject shot;
     public CapsuleCollider leftWheelCollider;
     public CapsuleCollider centerCollider;
+    bool groundedByExtraColliders = false;
 
     public static void OnSceneReload()
     {
@@ -69,11 +70,16 @@ public class Player : MonoBehaviour
 
     private void Jump()
     {
-        if (controller.isGrounded)
+        if (IsGrounded())
         {
             moveDirection.y = jumpSpeed;
             audioSource.PlayOneShot(jumpClip);
         }
+    }
+
+    private bool IsGrounded()
+    {
+        return controller.isGrounded || groundedByExtraColliders;
     }
 
     private static float slowDownTime = 2;
@@ -143,10 +149,8 @@ public class Player : MonoBehaviour
         moveDirection.x = currentSpeed;
         moveDirection.y -= gravity * Time.fixedDeltaTime;
 
-
-        if (!CheckExtraCollider(leftWheelCollider))
-            CheckExtraCollider(centerCollider);
-
+        groundedByExtraColliders = CheckExtraCollider(leftWheelCollider) || CheckExtraCollider(centerCollider);
+            
         controller.Move(moveDirection * Time.fixedDeltaTime);
 
         UpdateSlowDown();
@@ -164,6 +168,7 @@ public class Player : MonoBehaviour
                 moveDirection.y = 0;
 
                 CheckIfHitObjectIsSpecial(hit.collider.gameObject);
+                groundedByExtraColliders = true;
                 return true;
             }
         }
