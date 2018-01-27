@@ -287,7 +287,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4945853566701174, guid: 198bee8069e22bc4b8d496bdf25a93aa, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 14.59
+      value: 14.86
       objectReference: {fileID: 0}
     - target: {fileID: 4945853566701174, guid: 198bee8069e22bc4b8d496bdf25a93aa, type: 2}
       propertyPath: m_LocalPosition.z
@@ -400,7 +400,7 @@ MonoBehaviour:
   - {fileID: 1368425500040138, guid: a3d5bc8b4aec536419450fa6fb1e5453, type: 2}
   - {fileID: 1368425500040138, guid: a3d5bc8b4aec536419450fa6fb1e5453, type: 2}
   - {fileID: 1368425500040138, guid: a3d5bc8b4aec536419450fa6fb1e5453, type: 2}
-  - {fileID: 1368425500040138, guid: a3d5bc8b4aec536419450fa6fb1e5453, type: 2}
+  - {fileID: 1621944904183642, guid: 3e121be5260d38f40b4d68ed2169b4ef, type: 2}
   - {fileID: 1368425500040138, guid: a3d5bc8b4aec536419450fa6fb1e5453, type: 2}
   - {fileID: 1368425500040138, guid: a3d5bc8b4aec536419450fa6fb1e5453, type: 2}
   - {fileID: 1368425500040138, guid: a3d5bc8b4aec536419450fa6fb1e5453, type: 2}
@@ -470,7 +470,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4945853566701174, guid: 198bee8069e22bc4b8d496bdf25a93aa, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 4
+      value: 4.19
       objectReference: {fileID: 0}
     - target: {fileID: 4945853566701174, guid: 198bee8069e22bc4b8d496bdf25a93aa, type: 2}
       propertyPath: m_LocalPosition.z

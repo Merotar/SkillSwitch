@@ -7,11 +7,11 @@ using System;
 public class Player : MonoBehaviour
 {
     public int playerId;
-    public static float speed = 5;
+    public static float speed = 8;
     public static float maxHorizontalSpeed = 10;
-    public static float jumpSpeed = 10;
+    public static float jumpSpeed = 15;
 
-    private static float gravity = 9.81F;
+    private static float gravity = 25F;
 
     public static Player player1;
     public static Player player2;
@@ -90,7 +90,7 @@ public class Player : MonoBehaviour
     {
         for (int i = 0; i != 4; ++i)
         {
-            if (Input.GetButtonDown("Skill" + i + "_" + playerId))
+            if (Input.GetButton("Skill" + i + "_" + playerId))
             {
                 OnSkillTriggered(i);
             }
@@ -99,10 +99,13 @@ public class Player : MonoBehaviour
 
     void OnSkillTriggered(int skillId)
     {
-        if (Input.GetButton("Shift_" + playerId))
-            SwapSkill(skillId);
-        else if (OwnsSkill(skillId))
-            SkillActions[skillId]();
+        if (OwnsSkill(skillId))
+        {
+            if (Input.GetButton("Shift_" + playerId))
+                SwapSkill(skillId);
+            else
+                SkillActions[skillId]();
+        }
     }
 
     bool OwnsSkill(int skillId)
