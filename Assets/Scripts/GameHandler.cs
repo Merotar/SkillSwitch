@@ -11,6 +11,8 @@ public class GameHandler: MonoBehaviour
 
     private static int nextLevel = 0;
 
+    public static int maxLevel = 2;
+
     void Awake()
     {
         Debug.Assert(instance == null);
@@ -58,17 +60,24 @@ public class GameHandler: MonoBehaviour
         instance.StartCoroutine(GameOverCoro());
     }
 
-    public static void NextLevel()
+    public static bool NextLevel()
     {
-        ChangeLevel(nextLevel + 1);
+        if (nextLevel != maxLevel)
+        {
+            ChangeLevel(nextLevel + 1);
+            return true;
+        }
+        return false;
     }
 
-    public static void PreviousLevel()
+    public bool PreviousLevel()
     {
         if (nextLevel > 0)
+        {
             ChangeLevel(nextLevel - 1);
-        else
-            GameOver();
+            return true;
+        }
+        return false;
     }
 
     public static void ChangeLevel(int level)
@@ -92,7 +101,10 @@ public class GameHandler: MonoBehaviour
 
     public static void OnPlayerReachedGoal(Player player)
     {
-        NextLevel();
+        if (!NextLevel())
+        {
+            UIManager.instance.OnLastLevelDone();
+        }
     }
 }
 

@@ -17,6 +17,7 @@ public class UIManager : MonoBehaviour
         gameObject.SetActive(openMenu);
         Debug.Assert(instance == null);
         instance = this;
+        levelSlider.maxValue = GameHandler.maxLevel;
     }
 	
     // Update is called once per frame
@@ -53,5 +54,10 @@ public class UIManager : MonoBehaviour
     {
         Time.timeScale = (1.0f - Time.timeScale);
         gameObject.SetActive(!gameObject.activeSelf);
+    }
+
+    public void OnLastLevelDone()
+    {
+        MenuButtonPressed();
     }
 }
