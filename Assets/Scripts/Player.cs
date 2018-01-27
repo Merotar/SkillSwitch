@@ -30,10 +30,16 @@ public class Player : MonoBehaviour
         transform.position = startPos;
         SkillActions = new Action[]{ Shoot,  Jump, Slide, Run };
         if (SkillOwner == null)
+        {
             SkillOwner = new Player[]{ this, this, null, null };
+            SkillDisplay.OnSkillOwnerChanged(0, this);
+            SkillDisplay.OnSkillOwnerChanged(1, this);
+        }
         else
         {
             SkillOwner[2] = SkillOwner[3] = this;
+            SkillDisplay.OnSkillOwnerChanged(2, this);
+            SkillDisplay.OnSkillOwnerChanged(3, this);
             if (playerId == 1)
                 otherPlayer = player2;
             else
@@ -116,6 +122,7 @@ public class Player : MonoBehaviour
     void SwapSkill(int skillId)
     {
         SkillOwner[skillId] = SkillOwner[skillId].otherPlayer;
+        SkillDisplay.OnSkillOwnerChanged(skillId, SkillOwner[skillId]);
     }
 
     void OnControllerColliderHit(ControllerColliderHit hit)
@@ -139,5 +146,10 @@ public class Player : MonoBehaviour
     private void OnCollisionSides()
     {
         GameHandler.GameOver();    
+    }
+
+    public Vector3 StartPosition()
+    {
+        return startPos;
     }
 }

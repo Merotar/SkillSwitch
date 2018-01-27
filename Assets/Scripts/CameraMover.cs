@@ -8,6 +8,7 @@ public class CameraMover : MonoBehaviour
     public float speed = 5;
     private Camera cam;
     public float padding = 2;
+    public Vector3 offset;
     public float smoothingFactor = 0.5f;
 
     // Use this for initialization
@@ -26,6 +27,7 @@ public class CameraMover : MonoBehaviour
 
         Vector3 center = (Player.player1.transform.position + Player.player2.transform.position) / 2;
         center.z = -distance;
+        center += offset;
 
         //transform.position = Vector3.Lerp(cam.transform.position, center, Mathf.Atan(Time.deltaTime) * smoothingFactor);
         //center.x = transform.position.x * (1 - smoothingFactor) + smoothingFactor * center.x;
