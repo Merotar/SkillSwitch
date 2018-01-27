@@ -23,7 +23,7 @@ public class CameraMover : MonoBehaviour
     {
         float smoothing = smoothingFactor;
         if (!GameHandler.IsRunning())
-            smoothing = 0.005f;
+            smoothing = 0.01f;
         
         Vector3 center = (Player.player1.transform.position + Player.player2.transform.position) / 2;
         Vector3 newPos = center;

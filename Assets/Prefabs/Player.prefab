@@ -244,7 +244,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerId: 1
-  shotDelay: 0.3
+  shotDelay: 0.05
   jumpClip: {fileID: 8300000, guid: 7eee9570083b8c142b2503e8db0fb74c, type: 3}
   slowMotionClip: {fileID: 8300000, guid: 1c4bad8fefe1f8348b42bce178969d33, type: 3}
   skillSwitchClip: {fileID: 8300000, guid: 808de14bfb061984fbfc95a0bcbd2513, type: 3}

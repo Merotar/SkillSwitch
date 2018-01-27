@@ -9,7 +9,10 @@ public class GameHandler: MonoBehaviour
 
     private static bool running = false;
 
-    private static int nextLevel = 0;
+    private static int nextLevel;
+
+    public int firstLevel = 0;
+    public int lastLevel = 2;
 
     public static int maxLevel = 2;
 
@@ -17,6 +20,8 @@ public class GameHandler: MonoBehaviour
     {
         Debug.Assert(instance == null);
         instance = this;
+        nextLevel = firstLevel;
+        maxLevel = lastLevel;
     }
 
     void Start()
@@ -36,7 +41,7 @@ public class GameHandler: MonoBehaviour
 
     private static IEnumerator StartCoro()
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(2);
         running = true;
     }
 
