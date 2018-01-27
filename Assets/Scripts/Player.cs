@@ -7,7 +7,7 @@ using System;
 public class Player : MonoBehaviour
 {
     public int playerId;
-    public readonly static float speed = 8;
+    public readonly static float speed = 9;
     public readonly static float maxHorizontalSpeed = 10;
     public readonly static float jumpSpeed = 15;
 
@@ -37,10 +37,10 @@ public class Player : MonoBehaviour
     public GameObject shot;
     public CapsuleCollider leftWheelCollider;
     public CapsuleCollider centerCollider;
+    bool groundedByExtraColliders = false;
 
     public static void OnSceneReload()
     {
-        SkillOwner = null;
     }
 
     void Init()
@@ -49,14 +49,15 @@ public class Player : MonoBehaviour
         SkillActions = new Action[]{ Jump, SlowDown, Shoot };
         currentSpeed = speed;
         if (SkillOwner == null)
-        {
-            SkillOwner = new Player[]{ this, null };
-            SkillDisplay.OnSkillOwnerChanged(0, this);
-        }
+            SkillOwner = new Player[3];
+
+        if (playerId == 1)
+            player1 = this;
         else
+            player2 = this;
+
+        if (player1 && player2)
         {
-            SkillOwner[1] = this;
-            SkillDisplay.OnSkillOwnerChanged(1, this);
             if (playerId == 1)
                 otherPlayer = player2;
             else
@@ -73,13 +74,18 @@ public class Player : MonoBehaviour
 
     private void Jump()
     {
-        if (controller.isGrounded)
+        if (IsGrounded())
         {
             sparkParticles.Stop();
             sparkParticles.enableEmission = false;
             moveDirection.y = jumpSpeed;
             audioSource.PlayOneShot(jumpClip);
         }
+    }
+
+    private bool IsGrounded()
+    {
+        return controller.isGrounded || groundedByExtraColliders;
     }
 
     private static float slowDownTime = 2;
@@ -148,32 +154,43 @@ public class Player : MonoBehaviour
             sparkParticles.enableEmission = false;
             return;
         }
+        else
+        {
+            if (sparkParticles.isStopped & IsGrounded())
+            {
+                sparkParticles.Play();
+                sparkParticles.enableEmission = true;
+            }
+        }
 
         CheckActions();
         moveDirection.x = currentSpeed;
         moveDirection.y -= gravity * Time.fixedDeltaTime;
 
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position + leftWheelCollider.center, -Vector3.up, out hit) || Physics.Raycast(transform.position + centerCollider.center, -Vector3.up, out hit))
-        {
-            float dy = (transform.position + leftWheelCollider.center - hit.point).y;
-            if (dy <= leftWheelCollider.height / 2)
-            {
-                transform.position += (leftWheelCollider.height / 2 - dy) * Vector3.up;
-                moveDirection.y = 0;
-
-                CheckIfHitObjectIsSpecial(hit.collider.gameObject);
-            }
-        }
+        groundedByExtraColliders = CheckExtraCollider(leftWheelCollider) || CheckExtraCollider(centerCollider);
+            
         controller.Move(moveDirection * Time.fixedDeltaTime);
 
-        if (sparkParticles.isStopped)
+        UpdateSlowDown();
+    }
+
+    bool CheckExtraCollider(CapsuleCollider collider)
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position + collider.center, -Vector3.up, out hit))
         {
-            sparkParticles.Play();
-            sparkParticles.enableEmission = true;
+            float dy = (transform.position + collider.center - hit.point).y;
+            if (dy <= collider.height / 2 && !CheckIfHitObjectIsSpecial(hit.collider.gameObject))
+            {
+                transform.position += (collider.height / 2 - dy) * Vector3.up;
+                moveDirection.y = 0;
+
+                groundedByExtraColliders = true;
+                return true;
+            }
         }
 
-        UpdateSlowDown();
+        return false;
     }
 
     void CheckActions()
@@ -216,7 +233,11 @@ public class Player : MonoBehaviour
     {
         if (!CheckIfHitObjectIsSpecial(hit.gameObject))
         {
-            CheckCollisions(controller.collisionFlags);
+            var v3 = hit.transform.position - transform.position;
+            var angle = Vector3.Angle(v3, transform.right);
+
+            if (angle < 30)
+                GameHandler.GameOver();
         }
     }
 
@@ -226,24 +247,18 @@ public class Player : MonoBehaviour
             GameHandler.OnPlayerReachedGoal(this);
         else if (hitObject.GetComponent<KillCollision>())
             GameHandler.GameOver();
-        else
+        else if (hitObject.GetComponent<Skill>() == null)
             return false;
         return true;
-    }
-
-    private void CheckCollisions(CollisionFlags collisions)
-    {
-        if ((collisions & CollisionFlags.Sides) != 0)
-            OnCollisionSides();
-    }
-
-    private void OnCollisionSides()
-    {
-        GameHandler.GameOver();   
     }
 
     public Vector3 StartPosition()
     {
         return startPos;
+    }
+
+    public void GiveSkill(int skillId)
+    {
+        SkillOwner[skillId] = this;
     }
 }

@@ -22,6 +22,7 @@ public class SkillDisplay : MonoBehaviour
 
     public static void OnSkillOwnerChanged(int skillId, Player player)
     {
+        player.GiveSkill(skillId);
         instance.skillIcons[skillId].transform.parent = player.transform;
     }
 }
