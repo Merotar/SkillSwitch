@@ -32,6 +32,7 @@ public class GameHandler: MonoBehaviour
         while (Player.player1 == null)
             yield return null;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        Player.OnSceneReload();
         yield return new WaitForSeconds(1);
         running = true;
     }

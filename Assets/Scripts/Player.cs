@@ -7,11 +7,11 @@ using System;
 public class Player : MonoBehaviour
 {
     public int playerId;
-    public static float speed = 8;
-    public static float maxHorizontalSpeed = 10;
-    public static float jumpSpeed = 15;
+    public readonly static float speed = 8;
+    public readonly static float maxHorizontalSpeed = 10;
+    public readonly static float jumpSpeed = 15;
 
-    private static float gravity = 25F;
+    private readonly static float gravity = 25F;
 
     public static Player player1;
     public static Player player2;
@@ -25,6 +25,10 @@ public class Player : MonoBehaviour
     private Action[] SkillActions;
     private static Player[] SkillOwner;
 
+    public static void OnSceneReload()
+    {
+        SkillOwner = null;
+    }
 
     void Init()
     {
