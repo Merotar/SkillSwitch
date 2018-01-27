@@ -192,10 +192,6 @@ public class Player : MonoBehaviour
         }
         else
         {
-            if ((controller.collisionFlags & CollisionFlags.Sides) != 0)
-            {
-                Debug.Log(Time.frameCount + "\t" + hit.point);
-            }
             CheckCollisions(controller.collisionFlags);
         }
     }
