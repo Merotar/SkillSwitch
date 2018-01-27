@@ -5,14 +5,13 @@ Shader "SkillSwitch/BikeShader" {
     Properties {
 		_Color ("Main Color", Color) = (1,1,1,1)
 		_RimColor ("Rim Color", Color) = (1, 1, 1, 1)
-		_Shininess ("Shininess", Range (0.01, 1)) = 0.078125
+		_Shininess ("Shininess", Range (0.01, 10)) = 0.078125
     }
    
     SubShader {
      Tags {"Queue"="Transparent" "IgnoreProjector"="True" "RenderType"="Transparent"}
      LOD 200
         Pass {
-           Blend One One
             CGPROGRAM
                 #pragma vertex vert
                 #pragma fragment frag

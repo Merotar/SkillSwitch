@@ -57,7 +57,7 @@ public class Player : MonoBehaviour
             otherPlayer.otherPlayer = this;
         }
 
-        audioSource = GetComponent<AudioSource>();
+        audioSource = gameObject.AddComponent<AudioSource>();
     }
 
     private void Jump()
