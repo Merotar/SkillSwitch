@@ -15,7 +15,7 @@ public class UIManager : MonoBehaviour
     void Awake()
     {
         gameObject.SetActive(openMenu);
-        Debug.Assert(instance != null);
+        Debug.Assert(instance == null);
         instance = this;
     }
 	
