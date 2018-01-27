@@ -7,9 +7,9 @@ using System;
 public class Player : MonoBehaviour
 {
     public int playerId;
-    public readonly static float speed = 8;
+    public readonly static float speed = 9;
     public readonly static float maxHorizontalSpeed = 10;
-    public readonly static float jumpSpeed = 12;
+    public readonly static float jumpSpeed = 15;
 
     private float currentSpeed;
 
@@ -46,7 +46,8 @@ public class Player : MonoBehaviour
         transform.position = startPos;
         SkillActions = new Action[]{ Jump, SlowDown, Shoot };
         currentSpeed = speed;
-        SkillOwner = new Player[3];
+        if (SkillOwner == null)
+            SkillOwner = new Player[3];
         if (playerId == 1)
         {
             player1 = this;
