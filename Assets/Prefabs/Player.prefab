@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 136274002845186366}
   - component: {fileID: 136858915239983734}
   - component: {fileID: 82891017882053410}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 33621089541132834}
   - component: {fileID: 23837874788840394}
   - component: {fileID: 95854225408508324}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: PlayerModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -247,7 +247,7 @@ MonoBehaviour:
   jumpClip: {fileID: 8300000, guid: 7eee9570083b8c142b2503e8db0fb74c, type: 3}
   slowMotionClip: {fileID: 8300000, guid: 1c4bad8fefe1f8348b42bce178969d33, type: 3}
   skillSwitchClip: {fileID: 8300000, guid: 808de14bfb061984fbfc95a0bcbd2513, type: 3}
-  shot: {fileID: 0}
+  shot: {fileID: 1763948123444914, guid: 8953a7e6e36e53f489068068d8df14fa, type: 2}
   leftWheelCollider: {fileID: 136274002845186366}
   centerCollider: {fileID: 136858915239983734}
 --- !u!136 &136274002845186366

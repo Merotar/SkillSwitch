@@ -49,13 +49,14 @@ public class Player : MonoBehaviour
         currentSpeed = speed;
         if (SkillOwner == null)
         {
-            SkillOwner = new Player[]{ this, null };
+            SkillOwner = new Player[]{ this, this, null };
             SkillDisplay.OnSkillOwnerChanged(0, this);
+            SkillDisplay.OnSkillOwnerChanged(1, this);
         }
         else
         {
-            SkillOwner[1] = this;
-            SkillDisplay.OnSkillOwnerChanged(1, this);
+            SkillOwner[2] = this;
+            SkillDisplay.OnSkillOwnerChanged(2, this);
             if (playerId == 1)
                 otherPlayer = player2;
             else
@@ -142,21 +143,31 @@ public class Player : MonoBehaviour
         moveDirection.x = currentSpeed;
         moveDirection.y -= gravity * Time.fixedDeltaTime;
 
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position + leftWheelCollider.center, -Vector3.up, out hit) || Physics.Raycast(transform.position + centerCollider.center, -Vector3.up, out hit))
-        {
-            float dy = (transform.position + leftWheelCollider.center - hit.point).y;
-            if (dy <= leftWheelCollider.height / 2)
-            {
-                transform.position += (leftWheelCollider.height / 2 - dy) * Vector3.up;
-                moveDirection.y = 0;
 
-                CheckIfHitObjectIsSpecial(hit.collider.gameObject);
-            }
-        }
+        if (!CheckExtraCollider(leftWheelCollider))
+            CheckExtraCollider(centerCollider);
+
         controller.Move(moveDirection * Time.fixedDeltaTime);
 
         UpdateSlowDown();
+    }
+
+    bool CheckExtraCollider(CapsuleCollider collider)
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position + collider.center, -Vector3.up, out hit))
+        {
+            float dy = (transform.position + collider.center - hit.point).y;
+            if (dy <= collider.height / 2)
+            {
+                transform.position += (collider.height / 2 - dy) * Vector3.up;
+                moveDirection.y = 0;
+
+                CheckIfHitObjectIsSpecial(hit.collider.gameObject);
+                return true;
+            }
+        }
+        return false;
     }
 
     void CheckActions()

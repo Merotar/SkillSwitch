@@ -25,7 +25,8 @@ public class Shot : MonoBehaviour
         if (hit.gameObject.GetComponent<Destructible>())
         {
             Destroy(hit.gameObject);
-            Destroy(gameObject);
         }
+        else if (hit.gameObject.GetComponent<Shot>() == null)
+            Destroy(gameObject);
     }
 }
