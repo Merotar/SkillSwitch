@@ -29,6 +29,7 @@ public class Player : MonoBehaviour
 
     private AudioSource audioSource;
     public AudioClip jumpClip;
+    public AudioClip slowMotionClip;
 
     public static void OnSceneReload()
     {
@@ -75,7 +76,10 @@ public class Player : MonoBehaviour
     private void SlowDown()
     {
         if (slowDownPressedTime == 0)
+        {
             slowDownPressedTime = Time.time;
+            audioSource.PlayOneShot(slowMotionClip);
+        }
     }
 
     private void UpdateSlowDown()

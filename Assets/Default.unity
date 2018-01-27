@@ -255,6 +255,16 @@ Prefab:
       propertyPath: playerId
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114116468888761888, guid: cb7924df3b05e6d46b8a8b102bda6820,
+        type: 2}
+      propertyPath: slowMotionClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 1c4bad8fefe1f8348b42bce178969d33, type: 3}
+    - target: {fileID: 114116468888761888, guid: cb7924df3b05e6d46b8a8b102bda6820,
+        type: 2}
+      propertyPath: jumpClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 7eee9570083b8c142b2503e8db0fb74c, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cb7924df3b05e6d46b8a8b102bda6820, type: 2}
   m_IsPrefabParent: 0
@@ -477,6 +487,16 @@ Prefab:
       propertyPath: m_Name
       value: Player1
       objectReference: {fileID: 0}
+    - target: {fileID: 114116468888761888, guid: cb7924df3b05e6d46b8a8b102bda6820,
+        type: 2}
+      propertyPath: slowMotionClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 1c4bad8fefe1f8348b42bce178969d33, type: 3}
+    - target: {fileID: 114116468888761888, guid: cb7924df3b05e6d46b8a8b102bda6820,
+        type: 2}
+      propertyPath: jumpClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 7eee9570083b8c142b2503e8db0fb74c, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cb7924df3b05e6d46b8a8b102bda6820, type: 2}
   m_IsPrefabParent: 0
