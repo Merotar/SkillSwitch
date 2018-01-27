@@ -28,7 +28,8 @@ public class Player : MonoBehaviour
     private Action[] SkillActions;
     private static Player[] SkillOwner;
 
-    private ParticleSystem sparkParticles;
+    public ParticleSystem sparkParticles;
+    public ParticleSystem deathParticles;
 
     public float shotDelay;
     private float shotDt;
@@ -70,7 +71,7 @@ public class Player : MonoBehaviour
             otherPlayer.otherPlayer = this;
         }
 
-        sparkParticles = gameObject.GetComponentInChildren<ParticleSystem>();
+//        sparkParticles = gameObject.GetComponentInChildren<ParticleSystem>();
         sparkParticles.Stop();
         sparkParticles.enableEmission = false;
 
@@ -250,7 +251,10 @@ public class Player : MonoBehaviour
             var angle = Vector3.Angle(v3, transform.right);
 
             if (angle < 30)
+            {
+                deathParticles.Play();
                 GameHandler.GameOver();
+            }
         }
     }
 
