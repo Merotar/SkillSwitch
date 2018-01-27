@@ -35,19 +35,17 @@ public class Player : MonoBehaviour
     void Init()
     {
         transform.position = startPos;
-        SkillActions = new Action[]{ SlowDown,  Jump, Slide, Run };
+        SkillActions = new Action[]{ SlowDown, Jump };
         currentSpeed = speed;
         if (SkillOwner == null)
         {
-            SkillOwner = new Player[]{ this, this, null, null };
+            SkillOwner = new Player[]{ this, null };
             SkillDisplay.OnSkillOwnerChanged(0, this);
-            SkillDisplay.OnSkillOwnerChanged(1, this);
         }
         else
         {
-            SkillOwner[2] = SkillOwner[3] = this;
-            SkillDisplay.OnSkillOwnerChanged(2, this);
-            SkillDisplay.OnSkillOwnerChanged(3, this);
+            SkillOwner[1] = this;
+            SkillDisplay.OnSkillOwnerChanged(1, this);
             if (playerId == 1)
                 otherPlayer = player2;
             else
@@ -128,7 +126,7 @@ public class Player : MonoBehaviour
 
     void CheckActions()
     {
-        for (int i = 0; i != 4; ++i)
+        for (int i = 0; i != SkillActions.Length; ++i)
         {
             if (Input.GetButton("Skill" + i + "_" + playerId))
             {
