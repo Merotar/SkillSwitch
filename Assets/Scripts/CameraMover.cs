@@ -10,7 +10,7 @@ public class CameraMover : MonoBehaviour
     public float padding = 2;
     public Vector3 offsetPerspective;
     public float offsetX;
-    public float smoothingFactor = 0.005f;
+    public float smoothingFactor = 0.05f;
 
     // Use this for initialization
     void Start()
