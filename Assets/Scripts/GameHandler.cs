@@ -46,5 +46,10 @@ public class GameHandler: MonoBehaviour
     {
         return running;
     }
+
+    public static void OnPlayerReachedGoald(Player player)
+    {
+        running = false;
+    }
 }
 

@@ -48,8 +48,19 @@ public class Player : MonoBehaviour
 
         }
         moveDirection.y -= gravity * Time.fixedDeltaTime;
-        CollisionFlags collisions = controller.Move(moveDirection * Time.fixedDeltaTime);
-        CheckCollisions(collisions);
+        controller.Move(moveDirection * Time.fixedDeltaTime);
+    }
+
+    void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        if (hit.gameObject.GetComponent<Goal>())
+        {
+            GameHandler.OnPlayerReachedGoald(this);
+        }
+        else
+        {
+            CheckCollisions(controller.collisionFlags);
+        }
     }
 
     private void CheckCollisions(CollisionFlags collisions)
