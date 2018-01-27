@@ -142,11 +142,17 @@ public class Player : MonoBehaviour
         moveDirection.x = currentSpeed;
         moveDirection.y -= gravity * Time.fixedDeltaTime;
 
-
-        if (!controller.isGrounded && (Physics.Raycast(transform.position + leftWheelCollider.center, -Vector3.up, leftWheelCollider.height / 2) ||
-            Physics.Raycast(transform.position + centerCollider.center, -Vector3.up, centerCollider.height / 2)))
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position + leftWheelCollider.center, -Vector3.up, out hit) || Physics.Raycast(transform.position + centerCollider.center, -Vector3.up, out hit))
         {
-            moveDirection.y = 0;
+            float dy = (transform.position + leftWheelCollider.center - hit.point).y;
+            if (dy <= leftWheelCollider.height / 2)
+            {
+                transform.position += (leftWheelCollider.height / 2 - dy) * Vector3.up;
+                moveDirection.y = 0;
+
+                CheckIfHitObjectIsSpecial(hit.collider.gameObject);
+            }
         }
         controller.Move(moveDirection * Time.fixedDeltaTime);
 
@@ -191,18 +197,21 @@ public class Player : MonoBehaviour
 
     void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        if (hit.gameObject.GetComponent<Goal>())
-        {
-            GameHandler.OnPlayerReachedGoal(this);
-        }
-        else if (hit.gameObject.GetComponent<KillCollision>())
-        {
-            GameHandler.GameOver();
-        }
-        else
+        if (!CheckIfHitObjectIsSpecial(hit.gameObject))
         {
             CheckCollisions(controller.collisionFlags);
         }
+    }
+
+    private bool CheckIfHitObjectIsSpecial(GameObject hitObject)
+    {
+        if (hitObject.GetComponent<Goal>())
+            GameHandler.OnPlayerReachedGoal(this);
+        else if (hitObject.GetComponent<KillCollision>())
+            GameHandler.GameOver();
+        else
+            return false;
+        return true;
     }
 
     private void CheckCollisions(CollisionFlags collisions)
