@@ -11,6 +11,8 @@ public class Player : MonoBehaviour
     public readonly static float maxHorizontalSpeed = 10;
     public readonly static float jumpSpeed = 15;
 
+    private float currentSpeed;
+
     private readonly static float gravity = 25F;
 
     public static Player player1;
@@ -33,7 +35,8 @@ public class Player : MonoBehaviour
     void Init()
     {
         transform.position = startPos;
-        SkillActions = new Action[]{ Shoot,  Jump, Slide, Run };
+        SkillActions = new Action[]{ SlowDown,  Jump, Slide, Run };
+        currentSpeed = speed;
         if (SkillOwner == null)
         {
             SkillOwner = new Player[]{ this, this, null, null };
@@ -61,8 +64,31 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void Shoot()
+    private static float slowDownTime = 2;
+    private static float slowDownFactor = 0.3f;
+    private float slowDownPressedTime = 0;
+
+    private void SlowDown()
     {
+        if (slowDownPressedTime == 0)
+            slowDownPressedTime = Time.time;
+    }
+
+    private void UpdateSlowDown()
+    {
+        if (slowDownPressedTime != 0)
+        {
+            float dt = Time.time - slowDownPressedTime;
+            if (dt > 3 * slowDownTime)
+            {  
+                currentSpeed = speed;
+                slowDownPressedTime = 0;
+            }
+            else if (dt < slowDownTime)
+                currentSpeed = speed * slowDownFactor;
+            else
+                currentSpeed = speed * (3 - slowDownFactor) / 2;
+        }
     }
 
     private void Slide()
@@ -85,7 +111,7 @@ public class Player : MonoBehaviour
         Init();
     }
 
-    private Vector3 moveDirection = speed * Vector3.right;
+    private Vector3 moveDirection;
 
     void FixedUpdate()
     {
@@ -93,9 +119,11 @@ public class Player : MonoBehaviour
             return;
 
         CheckActions();
-
+        moveDirection.x = currentSpeed;
         moveDirection.y -= gravity * Time.fixedDeltaTime;
         controller.Move(moveDirection * Time.fixedDeltaTime);
+
+        UpdateSlowDown();
     }
 
     void CheckActions()
