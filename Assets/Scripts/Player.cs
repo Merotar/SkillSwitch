@@ -39,7 +39,7 @@ public class Player : MonoBehaviour
     void Init()
     {
         transform.position = startPos;
-        SkillActions = new Action[]{ SlowDown, Jump };
+        SkillActions = new Action[]{ Jump, SlowDown };
         currentSpeed = speed;
         if (SkillOwner == null)
         {
