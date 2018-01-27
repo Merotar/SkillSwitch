@@ -31,21 +31,25 @@ public class TiledJsonImporter : MonoBehaviour
 
     public GameObject[] tiles;
 
-    // Use this for initialization
+    private static TiledJsonImporter instance;
+
     void Awake()
     {
-        GenerateLevel(LoadLevel(1));
+        instance = this;
     }
 
-    Level LoadLevel(int level)
+    public static void LoadLevel(int level)
     {
-        string json = System.IO.File.ReadAllText(levelPath + "/level" + level + ".json");
-        return JsonUtility.FromJson<Level>(json);
+        string json = System.IO.File.ReadAllText(instance.levelPath + "/level" + level + ".json");
+        instance.GenerateLevel(JsonUtility.FromJson<Level>(json));
     }
 
     void GenerateLevel(Level level)
     {
         Vector3 z = Vector3.zero;
+        if (level.layers.Length > 2)
+            z = Vector3.forward;
+
         foreach (var layer in level.layers)
         {
             if (layer.data == null)
