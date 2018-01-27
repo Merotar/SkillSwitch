@@ -45,7 +45,6 @@ public class TiledJsonImporter : MonoBehaviour
 
     void GenerateLevel(Level level)
     {
-        Vector3 z = Vector3.zero;
         foreach (var layer in level.layers)
         {
             if (layer.data == null)
@@ -60,13 +59,19 @@ public class TiledJsonImporter : MonoBehaviour
                     GameObject prefab = tiles[objId];
                     if (prefab != null)
                     {
+                        float z = 0;
+                        float dy = 0;
+                        if (y > layer.height / 2)
+                        {
+                            dy = layer.height / 2;
+                            z = 10;
+                        }
                         GameObject tile = Instantiate(prefab);
-                        tile.transform.position = x * Vector3.right + (layer.height - y) * Vector3.up + z;
-
+                        Vector3 pos = new Vector3(x, layer.height / 2 - y + dy, z);
+                        tile.transform.position = pos;
                     }
                 }
             }
-            z -= Vector3.forward;
         }
     }
 }
