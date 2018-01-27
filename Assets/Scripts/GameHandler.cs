@@ -9,7 +9,7 @@ public class GameHandler: MonoBehaviour
 
     private static bool running = false;
 
-    private static int nextLevel;
+    private static int nextLevel = int.MinValue;
 
     public int firstLevel = 0;
     public int lastLevel = 2;
@@ -20,7 +20,8 @@ public class GameHandler: MonoBehaviour
     {
         Debug.Assert(instance == null);
         instance = this;
-        nextLevel = firstLevel;
+        if (nextLevel == int.MinValue)
+            nextLevel = firstLevel;
         maxLevel = lastLevel;
     }
 
