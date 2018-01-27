@@ -9,10 +9,17 @@ public class GameHandler: MonoBehaviour
 
     private static bool running = false;
 
+    private static int nextLevel = 0;
+
     void Awake()
     {
         Debug.Assert(instance == null);
         instance = this;
+    }
+
+    void Start()
+    {
+        TiledJsonImporter.LoadLevel(nextLevel);
         instance.StartCoroutine(StartCoro());
     }
 
@@ -42,6 +49,26 @@ public class GameHandler: MonoBehaviour
         instance.StartCoroutine(GameOverCoro());
     }
 
+    public static void NextLevel()
+    {
+        instance.ChangeLevel(nextLevel + 1);
+    }
+
+    public static void PreviousLevel()
+    {
+        if (nextLevel > 0)
+            instance.ChangeLevel(nextLevel - 1);
+        else
+            GameOver();
+    }
+
+    private void ChangeLevel(int level)
+    {
+        running = false;
+        nextLevel = level;
+        RestartGame();
+    }
+
     private static IEnumerator GameOverCoro()
     {
         running = false;
@@ -56,7 +83,7 @@ public class GameHandler: MonoBehaviour
 
     public static void OnPlayerReachedGoal(Player player)
     {
-        running = false;
+        NextLevel();
     }
 }
 
