@@ -21,6 +21,7 @@ public class Player : MonoBehaviour
     private Player otherPlayer;
 
     private Vector3 startPos;
+    private Vector3 moveDirection;
 
     private CharacterController controller;
 
@@ -152,15 +153,6 @@ public class Player : MonoBehaviour
         Init();
     }
 
-    private Vector3 moveDirection;
-
-    void Update()
-    {
-        if (Input.GetButtonDown("Menu"))
-        {
-            UIManager.instance.MenuButtonPressed();
-        }
-    }
 
     void FixedUpdate()
     {

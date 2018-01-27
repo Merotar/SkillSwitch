@@ -23,6 +23,15 @@ public class GameHandler: MonoBehaviour
         instance.StartCoroutine(StartCoro());
     }
 
+    void Update()
+    {
+        if (Input.GetButtonDown("Menu"))
+        {
+            Debug.Log(Time.frameCount);
+            UIManager.instance.MenuButtonPressed();
+        }
+    }
+
     private static IEnumerator StartCoro()
     {
         yield return new WaitForSeconds(3);
