@@ -27,10 +27,13 @@ public class Player : MonoBehaviour
     private Action[] SkillActions;
     private static Player[] SkillOwner;
 
+
     private AudioSource audioSource;
     public AudioClip jumpClip;
     public AudioClip slowMotionClip;
     public AudioClip skillSwitchClip;
+
+    public GameObject shot;
 
     public static void OnSceneReload()
     {
@@ -40,7 +43,7 @@ public class Player : MonoBehaviour
     void Init()
     {
         transform.position = startPos;
-        SkillActions = new Action[]{ Jump, SlowDown };
+        SkillActions = new Action[]{ Jump, SlowDown, Shoot };
         currentSpeed = speed;
         if (SkillOwner == null)
         {
@@ -81,6 +84,12 @@ public class Player : MonoBehaviour
             slowDownPressedTime = Time.time;
             audioSource.PlayOneShot(slowMotionClip);
         }
+    }
+
+    private void Shoot()
+    {
+        Renderer renderer = gameObject.GetComponentInChildren<Renderer>();
+        GameObject.Instantiate(shot, new Vector3(0.5f + renderer.bounds.size.x / 2.0f, 0, 0) + gameObject.transform.position, Quaternion.identity);
     }
 
     private void UpdateSlowDown()

@@ -313,7 +313,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4467628937366034, guid: cb7924df3b05e6d46b8a8b102bda6820, type: 2}
       propertyPath: m_RootOrder
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1227922018941410, guid: cb7924df3b05e6d46b8a8b102bda6820, type: 2}
       propertyPath: m_Name
@@ -324,6 +324,12 @@ Prefab:
       propertyPath: skillSwitchClip
       value: 
       objectReference: {fileID: 8300000, guid: 808de14bfb061984fbfc95a0bcbd2513, type: 3}
+    - target: {fileID: 114116468888761888, guid: cb7924df3b05e6d46b8a8b102bda6820,
+        type: 2}
+      propertyPath: shot
+      value: 
+      objectReference: {fileID: 1763948123444914, guid: 8953a7e6e36e53f489068068d8df14fa,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cb7924df3b05e6d46b8a8b102bda6820, type: 2}
   m_IsPrefabParent: 0
@@ -365,7 +371,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1624812998
 GameObject:
@@ -538,7 +544,7 @@ Transform:
   - {fileID: 2036346126}
   - {fileID: 2035290353}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1753458682
 MonoBehaviour:
@@ -745,7 +751,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4467628937366034, guid: cb7924df3b05e6d46b8a8b102bda6820, type: 2}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1227922018941410, guid: cb7924df3b05e6d46b8a8b102bda6820, type: 2}
       propertyPath: m_Name
@@ -761,6 +767,12 @@ Prefab:
       propertyPath: skillSwitchClip
       value: 
       objectReference: {fileID: 8300000, guid: 808de14bfb061984fbfc95a0bcbd2513, type: 3}
+    - target: {fileID: 114116468888761888, guid: cb7924df3b05e6d46b8a8b102bda6820,
+        type: 2}
+      propertyPath: shot
+      value: 
+      objectReference: {fileID: 1763948123444914, guid: 8953a7e6e36e53f489068068d8df14fa,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cb7924df3b05e6d46b8a8b102bda6820, type: 2}
   m_IsPrefabParent: 0
