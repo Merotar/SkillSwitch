@@ -6,7 +6,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public int playerId;
-    public static float speed = 10;
+    public static float speed = 0;
     public static float maxHorizontalSpeed = 10;
     public static float jumpSpeed = 10;
 
@@ -43,7 +43,8 @@ public class Player : MonoBehaviour
             return;
         if (controller.isGrounded)
         {
-            if (Input.GetButton("Jump" + playerId))
+            if (Input.GetButton("Shift_" + playerId))
+            if (Input.GetButtonDown("Skill1_" + playerId))
                 moveDirection.y = jumpSpeed;
 
         }
