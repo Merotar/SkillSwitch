@@ -34,6 +34,8 @@ public class Player : MonoBehaviour
     public AudioClip skillSwitchClip;
 
     public GameObject shot;
+    public CapsuleCollider leftWheelCollider;
+    public CapsuleCollider centerCollider;
 
     public static void OnSceneReload()
     {
@@ -139,6 +141,13 @@ public class Player : MonoBehaviour
         CheckActions();
         moveDirection.x = currentSpeed;
         moveDirection.y -= gravity * Time.fixedDeltaTime;
+
+
+        if (!controller.isGrounded && (Physics.Raycast(transform.position + leftWheelCollider.center, -Vector3.up, leftWheelCollider.height / 2) ||
+            Physics.Raycast(transform.position + centerCollider.center, -Vector3.up, centerCollider.height / 2)))
+        {
+            moveDirection.y = 0;
+        }
         controller.Move(moveDirection * Time.fixedDeltaTime);
 
         UpdateSlowDown();

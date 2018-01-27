@@ -22,6 +22,8 @@ GameObject:
   - component: {fileID: 95174240883200560}
   - component: {fileID: 143897514465725468}
   - component: {fileID: 114116468888761888}
+  - component: {fileID: 136274002845186366}
+  - component: {fileID: 136858915239983734}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -164,6 +166,34 @@ MonoBehaviour:
   jumpClip: {fileID: 8300000, guid: 7eee9570083b8c142b2503e8db0fb74c, type: 3}
   slowMotionClip: {fileID: 8300000, guid: 1c4bad8fefe1f8348b42bce178969d33, type: 3}
   skillSwitchClip: {fileID: 8300000, guid: 808de14bfb061984fbfc95a0bcbd2513, type: 3}
+  leftWheelCollider: {fileID: 136274002845186366}
+  centerCollider: {fileID: 136858915239983734}
+--- !u!136 &136274002845186366
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1227922018941410}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: -1.47, y: -0.77, z: 0}
+--- !u!136 &136858915239983734
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1227922018941410}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: -0.77, z: 0}
 --- !u!143 &143897514465725468
 CharacterController:
   m_ObjectHideFlags: 1
