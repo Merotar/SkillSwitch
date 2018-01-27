@@ -30,8 +30,6 @@ public class CameraMover : MonoBehaviour
         //transform.position = Vector3.Lerp(cam.transform.position, center, Mathf.Atan(Time.deltaTime) * smoothingFactor);
         //center.x = transform.position.x * (1 - smoothingFactor) + smoothingFactor * center.x;
 
-        Debug.Log((transform.position.x - center.x) + "\t" + Time.deltaTime);
-
         transform.position = center;
     }
 }

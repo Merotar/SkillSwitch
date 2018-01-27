@@ -15,7 +15,14 @@ public class Player : MonoBehaviour
     public static Player player1;
     public static Player player2;
 
+    private Vector3 startPos;
+
     private CharacterController controller;
+
+    public void ResetPosition()
+    {
+        transform.position = startPos;
+    }
 
     void Start()
     {
@@ -24,12 +31,16 @@ public class Player : MonoBehaviour
             player1 = this;
         else
             player2 = this;
+
+        startPos = transform.position;
     }
 
     private Vector3 moveDirection = speed * Vector3.right;
 
     void FixedUpdate()
     {
+        if (!GameHandler.IsRunning())
+            return;
         if (controller.isGrounded)
         {
             if (Input.GetButton("Jump" + playerId))
@@ -37,6 +48,18 @@ public class Player : MonoBehaviour
 
         }
         moveDirection.y -= gravity * Time.fixedDeltaTime;
-        controller.Move(moveDirection * Time.fixedDeltaTime);
+        CollisionFlags collisions = controller.Move(moveDirection * Time.fixedDeltaTime);
+        CheckCollisions(collisions);
+    }
+
+    private void CheckCollisions(CollisionFlags collisions)
+    {
+        if ((collisions & CollisionFlags.Sides) != 0)
+            OnCollisionSides();
+    }
+
+    private void OnCollisionSides()
+    {
+        GameHandler.GameOver();    
     }
 }
