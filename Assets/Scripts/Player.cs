@@ -7,7 +7,7 @@ using System;
 public class Player : MonoBehaviour
 {
     public int playerId;
-    public readonly static float speed = 12;
+    public readonly static float speed = 10;
     public readonly static float maxHorizontalSpeed = 10;
     public readonly static float jumpSpeed = 20;
 
@@ -39,6 +39,7 @@ public class Player : MonoBehaviour
     public AudioClip slowMotionClip;
     public AudioClip skillSwitchClip;
     public AudioClip explosionClip;
+    public AudioClip successClip;
 
     public GameObject shot;
     public CapsuleCollider leftWheelCollider;
@@ -260,13 +261,16 @@ public class Player : MonoBehaviour
     private bool CheckIfHitObjectIsSpecial(GameObject hitObject)
     {
         if (hitObject.GetComponent<Goal>())
+        {
             GameHandler.OnPlayerReachedGoal(this);
+        }
         else if (hitObject.GetComponent<KillCollision>())
             InitDeath();
         else if (hitObject.GetComponent<Skill>() == null)
             return false;
         return true;
     }
+
 
     public void InitDeath()
     {

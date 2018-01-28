@@ -313,6 +313,7 @@ MonoBehaviour:
   slowMotionClip: {fileID: 8300000, guid: 1c4bad8fefe1f8348b42bce178969d33, type: 3}
   skillSwitchClip: {fileID: 8300000, guid: 808de14bfb061984fbfc95a0bcbd2513, type: 3}
   explosionClip: {fileID: 8300000, guid: 077150861c20bbd40b4fa1fff5a477c9, type: 3}
+  successClip: {fileID: 8300000, guid: 377245e906db47349bea3fe32bf4583a, type: 3}
   shot: {fileID: 1763948123444914, guid: 8953a7e6e36e53f489068068d8df14fa, type: 2}
   leftWheelCollider: {fileID: 136274002845186366}
   centerCollider: {fileID: 136858915239983734}
