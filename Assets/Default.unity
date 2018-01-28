@@ -1185,7 +1185,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firstLevel: 6
-  lastLevel: 6
 --- !u!4 &1142840379
 Transform:
   m_ObjectHideFlags: 0

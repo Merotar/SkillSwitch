@@ -10,6 +10,5 @@ public class Goal : MonoBehaviour
     void Update()
     {
         material.SetFloat("_GlowWidth", Mathf.Sin(Time.time * rotationSpeed));
-        transform.RotateAround(transform.position, transform.up, Time.deltaTime * rotationSpeed);
     }
 }
