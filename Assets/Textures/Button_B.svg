@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="39.879749mm"
+   height="50.183586mm"
+   viewBox="0 0 39.879749 50.183586"
+   version="1.1"
+   id="svg834"
+   inkscape:version="0.92.2 (5c3e80d, 2017-08-06)"
+   sodipodi:docname="Button_B.svg"
+   inkscape:export-filename="C:\home\Unity\ggj18\Assets\Textures\Button_B.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96">
+  <defs
+     id="defs828">
+    <filter
+       inkscape:collect="always"
+       style="color-interpolation-filters:sRGB"
+       id="filter5563"
+       x="-0.11161056"
+       width="1.2232211"
+       y="-0.11161056"
+       height="1.2232211">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="0.770611"
+         id="feGaussianBlur5565" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       style="color-interpolation-filters:sRGB"
+       id="filter5006"
+       x="-0.019169291"
+       width="1.0383385"
+       y="-0.016965156"
+       height="1.0339303">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="1.5336384"
+         id="feGaussianBlur5008" />
+    </filter>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="2.8"
+     inkscape:cx="105.07097"
+     inkscape:cy="76.198079"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1842"
+     inkscape:window-height="1051"
+     inkscape:window-x="69"
+     inkscape:window-y="-9"
+     inkscape:window-maximized="1"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0" />
+  <metadata
+     id="metadata831">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Ebene 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-34.750944,-99.80858)">
+    <rect
+       style="opacity:1;fill:#000000;fill-opacity:1;stroke:#4080ff;stroke-width:3;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter5006)"
+       id="rect4504"
+       width="45.357151"
+       height="50.648811"
+       x="32.158497"
+       y="100.31113"
+       transform="matrix(0.84677431,0,0,0.95829927,8.2561951,4.5039337)" />
+    <circle
+       style="opacity:1;fill:#9b0000;fill-opacity:1;stroke:#e6e6e6;stroke-width:1;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter5563)"
+       id="path5010-6"
+       cx="35.624256"
+       cy="86.372772"
+       r="8.2853556"
+       transform="matrix(1.0505157,0,0,1.0220033,17.571696,36.84207)" />
+    <circle
+       style="opacity:1;fill:#9b0000;fill-opacity:0;stroke:#e6e6e6;stroke-width:0.90000004;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path5010"
+       cx="55.045048"
+       cy="125.16521"
+       r="8.2853556" />
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot5012"
+       style="font-style:normal;font-weight:normal;font-size:42.66666794px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+       transform="matrix(0.26458333,0,0,0.26458333,20.044201,38.911977)"><flowRegion
+         id="flowRegion5014"
+         style="font-size:42.66666794px"><rect
+           id="rect5016"
+           width="50.507626"
+           height="50.507626"
+           x="117.1777"
+           y="302.27582"
+           style="font-size:42.66666794px" /></flowRegion><flowPara
+         id="flowPara5018"
+         style="font-size:42.66666794px;fill:#e6e6e6;fill-opacity:1">B</flowPara></flowRoot>  </g>
+</svg>
