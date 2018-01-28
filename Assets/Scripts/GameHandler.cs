@@ -18,6 +18,8 @@ public class GameHandler: MonoBehaviour
 
     public static int maxLevel = 2;
 
+    public float difficulty = 1;
+
     void Awake()
     {
         Debug.Assert(instance == null);
@@ -29,6 +31,7 @@ public class GameHandler: MonoBehaviour
             nextLevel = firstLevel;
         maxLevel = numLevels - 1;
         UIManager.instance.levelSlider.maxValue = maxLevel;
+        Time.timeScale = difficulty;
     }
 
     void Start()
@@ -88,7 +91,7 @@ public class GameHandler: MonoBehaviour
 
     private static IEnumerator StartCoro()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSecondsRealtime(2);
         running = true;
     }
 
@@ -103,7 +106,7 @@ public class GameHandler: MonoBehaviour
             yield return null;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         Player.OnSceneReload();
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSecondsRealtime(1);
         running = true;
     }
 
@@ -142,7 +145,7 @@ public class GameHandler: MonoBehaviour
     private static IEnumerator GameOverCoro()
     {
         running = false;
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSecondsRealtime(3);
         RestartGame();
     }
 
@@ -159,7 +162,7 @@ public class GameHandler: MonoBehaviour
     private static IEnumerator GoalCoro()
     {
         running = false;
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSecondsRealtime(3);
         if (!NextLevel())
         {
             UIManager.instance.OnLastLevelDone();
