@@ -107,10 +107,19 @@ public class GameHandler: MonoBehaviour
 
     public static void OnPlayerReachedGoal(Player player)
     {
+        instance.StartCoroutine(GoalCoro());
+    }
+
+    private static IEnumerator GoalCoro()
+    {
+        running = false;
+        yield return new WaitForSeconds(3);
         if (!NextLevel())
         {
             UIManager.instance.OnLastLevelDone();
         }
     }
+
+
 }
 
