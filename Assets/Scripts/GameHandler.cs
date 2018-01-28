@@ -76,6 +76,14 @@ public class GameHandler: MonoBehaviour
             Debug.Log(Time.frameCount);
             UIManager.instance.MenuButtonPressed();
         }
+
+        if (Input.GetButtonDown("Screenshot") || keepScreenShooting)
+        {
+            var antialiasing = QualitySettings.antiAliasing;
+            QualitySettings.antiAliasing = 0;
+            ScreenCapture.CaptureScreenshot(string.Format("screenshots/{0:dd-MM-yy_HH-mm-ss}.png", System.DateTime.Now), 2);
+            QualitySettings.antiAliasing = antialiasing;
+        }
     }
 
     private static IEnumerator StartCoro()
