@@ -53,7 +53,7 @@ public class Player : MonoBehaviour
     {
         shotDt = 0;
         transform.position = startPos;
-        SkillActions = new Action[]{ Jump, SlowDown, Shoot };
+        SkillActions = new Action[]{ Jump, Shoot, SlowDown };
         currentSpeed = speed;
         if (SkillOwner == null)
             SkillOwner = new Player[3];

@@ -77,7 +77,7 @@ public class GameHandler: MonoBehaviour
             UIManager.instance.MenuButtonPressed();
         }
 
-        if (Input.GetButtonDown("Screenshot") || keepScreenShooting)
+        if (Input.GetButtonDown("Screenshot"))
         {
             var antialiasing = QualitySettings.antiAliasing;
             QualitySettings.antiAliasing = 0;
