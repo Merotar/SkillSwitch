@@ -1,7 +1,10 @@
 ﻿using System;
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using System.Text.RegularExpressions;
+using System.IO;
 
 public class GameHandler: MonoBehaviour
 {
@@ -20,15 +23,51 @@ public class GameHandler: MonoBehaviour
     {
         Debug.Assert(instance == null);
         instance = this;
+
+        int numLevels = getNumLevelsFromFiles();
+
         if (nextLevel == int.MinValue)
             nextLevel = firstLevel;
-        maxLevel = lastLevel;
+        maxLevel = numLevels - 1;
+        UIManager.instance.levelSlider.maxValue = maxLevel;
     }
 
     void Start()
     {
         TiledJsonImporter.LoadLevel(nextLevel);
         instance.StartCoroutine(StartCoro());
+    }
+
+    private int getNumLevelsFromFiles()
+    {
+        DirectoryInfo info = new DirectoryInfo(TiledJsonImporter.instance.levelPath);
+        FileInfo[] fileInfos = info.GetFiles();
+        int sumLevels = 0;
+        List<int> levelNumbers = new List<int>();
+        Regex r = new Regex(@"^level(\d+)\.json$");
+        foreach (FileInfo fi in fileInfos)
+        {
+            GroupCollection groups = r.Match(fi.Name).Groups;
+            Match match = Regex.Match(fi.Name, @"^level(\d+)\.json$");
+            if (match.Success)
+            {
+                levelNumbers.Add(int.Parse(match.Groups[1].Value));
+            }
+        }
+
+        for (int i = 0; i < levelNumbers.Count; i++)
+        {
+            if (levelNumbers.Contains(i))
+            {
+                sumLevels++;
+            }
+            else
+            {
+                return sumLevels;
+            }
+        }
+
+        return sumLevels;
     }
 
     void Update()

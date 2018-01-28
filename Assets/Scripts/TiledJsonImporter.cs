@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+
 [Serializable]
 public class Level
 {
@@ -31,7 +32,7 @@ public class TiledJsonImporter : MonoBehaviour
 
     public GameObject[] tiles;
 
-    private static TiledJsonImporter instance;
+    public static TiledJsonImporter instance;
 
     void Awake()
     {
