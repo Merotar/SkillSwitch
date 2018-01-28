@@ -28,7 +28,7 @@ public class Layer
 
 public class TiledJsonImporter : MonoBehaviour
 {
-    public string levelPath = "teamCpp/assets/levels";
+    public string levelPath;
 
     public GameObject[] tiles;
 
@@ -36,6 +36,7 @@ public class TiledJsonImporter : MonoBehaviour
 
     void Awake()
     {
+        levelPath = Application.streamingAssetsPath;
         instance = this;
     }
 
