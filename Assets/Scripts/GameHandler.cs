@@ -15,7 +15,6 @@ public class GameHandler: MonoBehaviour
     private static int nextLevel = int.MinValue;
 
     public int firstLevel = 0;
-    public int lastLevel = 2;
 
     public static int maxLevel = 2;
 

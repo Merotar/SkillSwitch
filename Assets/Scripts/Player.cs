@@ -86,6 +86,7 @@ public class Player : MonoBehaviour
             sparkParticles.Stop();
             sparkParticles.enableEmission = false;
             moveDirection.y = jumpSpeed;
+            transform.position += 0.1f * Vector3.up;
             audioSource.PlayOneShot(jumpClip);
         }
     }
@@ -155,7 +156,6 @@ public class Player : MonoBehaviour
         Init();
     }
 
-
     void FixedUpdate()
     {
         if (shotDt > 0)
@@ -183,7 +183,7 @@ public class Player : MonoBehaviour
         moveDirection.y -= gravity * Time.fixedDeltaTime;
 
         groundedByExtraColliders = CheckExtraCollider(leftWheelCollider) || CheckExtraCollider(centerCollider);
-            
+
         controller.Move(moveDirection * Time.fixedDeltaTime);
 
         UpdateSlowDown();
@@ -195,12 +195,11 @@ public class Player : MonoBehaviour
         if (Physics.Raycast(transform.position + collider.center, -Vector3.up, out hit))
         {
             float dy = (transform.position + collider.center - hit.point).y;
-            if (dy <= collider.height / 2 && !CheckIfHitObjectIsSpecial(hit.collider.gameObject))
+            if (dy <= collider.height / 2 + 0.05f && !CheckIfHitObjectIsSpecial(hit.collider.gameObject))
             {
                 transform.position += (collider.height / 2 - dy) * Vector3.up;
                 moveDirection.y = 0;
 
-                groundedByExtraColliders = true;
                 return true;
             }
         }
