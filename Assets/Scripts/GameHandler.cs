@@ -96,7 +96,7 @@ public class GameHandler: MonoBehaviour
     private static IEnumerator GameOverCoro()
     {
         running = false;
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(3);
         RestartGame();
     }
 
