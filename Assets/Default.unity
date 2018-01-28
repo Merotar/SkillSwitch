@@ -751,7 +751,7 @@ MonoBehaviour:
   speed: 0
   padding: 4
   offsetPerspective: {x: -15, y: 12, z: -50}
-  offsetX: 9
+  offsetX: 7
   smoothingFactor: 0.02
 --- !u!1 &605690412
 GameObject:
