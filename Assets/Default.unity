@@ -2348,8 +2348,8 @@ MonoBehaviour:
   controlsImage: {fileID: 100013690}
   controlsSprites:
   - {fileID: 21300000, guid: 81eda48baa076184b9fb39757645936c, type: 3}
-  - {fileID: 21300000, guid: 07df9756a65f6a644a5517fd08e9836a, type: 3}
   - {fileID: 21300000, guid: 9d418c46844f94e4c8d5c70cd68331e1, type: 3}
+  - {fileID: 21300000, guid: 07df9756a65f6a644a5517fd08e9836a, type: 3}
   controlsStrings:
   - controller
   - player 1
