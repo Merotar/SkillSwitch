@@ -7,7 +7,7 @@ using System;
 public class Player : MonoBehaviour
 {
     public int playerId;
-    public readonly static float speed = 10;
+    public readonly static float speed = 12;
     public readonly static float maxHorizontalSpeed = 10;
     public readonly static float jumpSpeed = 20;
 
