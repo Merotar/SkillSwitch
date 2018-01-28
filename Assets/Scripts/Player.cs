@@ -38,6 +38,7 @@ public class Player : MonoBehaviour
     public AudioClip jumpClip;
     public AudioClip slowMotionClip;
     public AudioClip skillSwitchClip;
+    public AudioClip explosionClip;
 
     public GameObject shot;
     public CapsuleCollider leftWheelCollider;
@@ -252,8 +253,7 @@ public class Player : MonoBehaviour
 
             if (angle < 30)
             {
-                deathParticles.Play();
-                GameHandler.GameOver();
+                InitDeath();
             }
         }
     }
@@ -264,12 +264,18 @@ public class Player : MonoBehaviour
             GameHandler.OnPlayerReachedGoal(this);
         else if (hitObject.GetComponent<KillCollision>())
         {
-            deathParticles.Play();
-            GameHandler.GameOver();
+            InitDeath();
         }
         else if (hitObject.GetComponent<Skill>() == null)
             return false;
         return true;
+    }
+
+    public void InitDeath()
+    {
+        audioSource.PlayOneShot(explosionClip);
+        deathParticles.Play();
+        GameHandler.GameOver();
     }
 
     public Vector3 StartPosition()
