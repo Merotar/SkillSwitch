@@ -192,15 +192,19 @@ public class Player : MonoBehaviour
 
     bool CheckExtraCollider(CapsuleCollider collider)
     {
+        return CheckExtraCollider(collider, Vector3.up) || CheckExtraCollider(collider, Vector3.down);
+    }
+
+    bool CheckExtraCollider(CapsuleCollider collider, Vector3 direction)
+    {
         RaycastHit hit;
-        if (Physics.Raycast(transform.position + collider.center, -Vector3.up, out hit))
+        if (Physics.Raycast(transform.position + collider.center, direction, out hit))
         {
             float dy = (transform.position + collider.center - hit.point).y;
-            if (dy <= collider.height / 2 + 0.05f && !CheckIfHitObjectIsSpecial(hit.collider.gameObject))
+            if (Mathf.Abs(dy) <= collider.height / 2 + 0.05f && !CheckIfHitObjectIsSpecial(hit.collider.gameObject))
             {
                 transform.position += (collider.height / 2 - dy) * Vector3.up;
                 moveDirection.y = 0;
-
                 return true;
             }
         }
